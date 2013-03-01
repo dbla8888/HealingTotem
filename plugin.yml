@@ -1,0 +1,39 @@
+name: HealingTotem
+main: tprk77.healingtotem.HTPlugin
+version: 1.0
+author: tprk77
+description: Health Regeneration from Totem Poles!
+softdepend: 
+  - MultiWorld
+permissions:
+  healingtotem.*:
+    discription: gives access to all healingtotem permissions
+    children:
+      healingtotem.build: true
+      healingtotem.break: true
+      healingtotem.heal: true
+      healingtotem.damage: true
+      healingtotem.reload: true
+  healingtotem.build:
+    description: allows user to build totems
+    default: true
+  healingtotem.break:
+    description: allows user to break totems
+    default: true
+  healingtotem.heal:
+    description: allows user to be healed by totems
+    default: true
+  healingtotem.damage:
+    description: allows user to be damaged by totems
+    default: true
+  healingtotem.unlimitedbuild:
+    description: allows user to build an unlimited number of totems (op)
+    default: op
+  healingtotem.reload:
+    description: allows user to reload the configuration file (op)
+    default: op
+commands:
+  HTReload:
+    description: Reloads the totemtypes.yml file
+    usage: /<command>
+    aliases: [htreload]

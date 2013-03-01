@@ -1,0 +1,542 @@
+GLOBAL:
+  STACKED_HEALING_MAXIMUM: 20
+  STACKED_DAMAGE_MAXIMUM: 20
+  EFFECT_INTERVAL: 2
+  MAX_TOTEMS_PER_PLAYER : 4
+  SUPPRESS_MESSAGES: FALSE
+  LIGHTNING_ON_BUILD: FALSE
+
+
+TOTEMTYPES:
+
+######################################
+#  This is the basic format of a totem
+#  all effects are optional, valid input
+#  for rotator are NONE, Y_ONLY, and ALL.
+#  A list of valid materials can be found
+#  at: http://jd.bukkit.org/rb/apidocs/org/bukkit/Material.html
+#  A list of valid potion effects can be
+#  found at: http://jd.bukkit.org/rb/apidocs/org/bukkit/potion/PotionEffectType.html
+#
+#  -  NAME: 
+#     STRUCTURE:
+#        - {x: , y: , z: , material: }
+#     ROTATOR:  NONE
+#     RANGE: 15.0
+#     GRADIENT: NONE                   NONE, LINEAR, QUADRATIC, or EXPONENTIAL
+#     EFFECT:
+#         HEAL:
+#           PLAYER: 2                  amount
+#           WOLF: 1
+#         DAMAGE:
+#           ZOMBIE: 2                  amount,integer 
+#           SKELETON: 3
+#         EXPLOSION:
+#           ZOMBIE: 3                  yield,integer
+#         TRANSFORM:
+#           CREEPER: SHEEP             target, entity
+#         FIRE:
+#           SPIDER: 5                  seconds, integer
+#         LIGHTNING:
+#           SKELETON: TRUE             true/false
+######################################
+# A list of supported entities is listed here:
+# 
+#           PLAYER
+#
+#           BLAZE
+#           CAVESPIDER
+#           CREEPER
+#           ENDERDRAGON
+#           ENDERMAN
+#           GHAST
+#           GIANT
+#           MAGMACUBE
+#           PIGZOMBIE
+#           SILVERFISH
+#           SKELETON
+#           SLIME
+#           SPIDER
+#           ZOMBIE
+#           WITCH
+#
+#           BAT
+#           CHICKEN
+#           COW
+#           IRONGOLEM
+#           MUSHROOMCOW
+#           OCELOT
+#           PIG
+#           SHEEP
+#           SNOWMAN
+#           SQUID
+#           VILLAGER
+#           WOLF
+#          
+# The plugin has been designed such that if new 
+# living entities have been added to the game 
+# since this plugin has been updated, the entity's
+# name in all caps with no spaces *should* still
+# work as expected.  No promises though.      
+#        
+######################################
+
+
+
+#1
+  -  NAME: SMALL_HEALING
+     STRUCTURE:
+        - {x: 1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: -1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: -1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 0, material: IRON_BLOCK}
+        - {x: 0, y: 0, z: 0, material: IRON_BLOCK}
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 10.0
+     GRADIENT: NONE
+     EFFECT:
+         HEAL:
+           PLAYER: 1
+           VILLAGER: 1
+
+#2
+  -  NAME: MEDUIM_HEALING
+     STRUCTURE:
+        - {x: 1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: -1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: -1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 0, material: GOLD_BLOCK}
+        - {x: 0, y: 0, z: 0, material: GOLD_BLOCK}
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 20.0
+     GRADIENT: NONE  
+     EFFECT:
+         HEAL:
+           PLAYER: 1
+           VILLAGER: 1
+
+#3
+  -  NAME: LARGE_HEALING
+     STRUCTURE:
+        - {x: 1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: -1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: -1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 0, material: DIAMOND_BLOCK}
+        - {x: 0, y: 0, z: 0, material: DIAMOND_BLOCK}
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 30.0
+     GRADIENT: NONE
+     EFFECT:
+         HEAL:
+           PLAYER: 1
+           VILLAGER: 1
+
+
+#4          
+  -  NAME: SMALL_DAMAGE
+     STRUCTURE:
+        - {x: 1, y: 1, z: 0, material: JACK_O_LANTERN}
+        - {x: -1, y: 1, z: 0, material: JACK_O_LANTERN}
+        - {x: 0, y: 1, z: 1, material: JACK_O_LANTERN}
+        - {x: 0, y: 1, z: -1, material: JACK_O_LANTERN}
+        - {x: 0, y: 1, z: 0, material: IRON_BLOCK}
+        - {x: 0, y: 0, z: 0, material: IRON_BLOCK}
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 10.0
+     GRADIENT: NONE
+     EFFECT:
+         DAMAGE:
+           BLAZE: 1
+           CAVESPIDER: 1
+           CREEPER: 1
+           ENDERDRAGON: 1
+           ENDERMAN: 1
+           GHAST: 1
+           GIANT: 1
+           MAGMACUBE: 1
+           PIGZOMBIE: 1
+           SILVERFISH: 1
+           SKELETON: 1
+           SLIME: 1
+           SPIDER: 1
+           ZOMBIE: 1
+
+#5 
+  -  NAME: MEDIUM_DAMAGE
+     STRUCTURE:
+        - {x: 1, y: 1, z: 0, material: JACK_O_LANTERN}
+        - {x: -1, y: 1, z: 0, material: JACK_O_LANTERN}
+        - {x: 0, y: 1, z: 1, material: JACK_O_LANTERN}
+        - {x: 0, y: 1, z: -1, material: JACK_O_LANTERN}
+        - {x: 0, y: 1, z: 0, material: GOLD_BLOCK}
+        - {x: 0, y: 0, z: 0, material: GOLD_BLOCK}
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 20.0
+     GRADIENT: NONE
+     EFFECT:
+         DAMAGE:
+           BLAZE: 1
+           CAVESPIDER: 1
+           CREEPER: 1
+           ENDERDRAGON: 1
+           ENDERMAN: 1
+           GHAST: 1
+           GIANT: 1
+           MAGMACUBE: 1
+           PIGZOMBIE: 1
+           SILVERFISH: 1
+           SKELETON: 1
+           SLIME: 1
+           SPIDER: 1
+           ZOMBIE: 1
+
+#6
+  -  NAME: LARGE_DAMAGE
+     STRUCTURE:
+        - {x: 1, y: 1, z: 0, material: JACK_O_LANTERN}
+        - {x: -1, y: 1, z: 0, material: JACK_O_LANTERN}
+        - {x: 0, y: 1, z: 1, material: JACK_O_LANTERN}
+        - {x: 0, y: 1, z: -1, material: JACK_O_LANTERN}
+        - {x: 0, y: 1, z: 0, material: DIAMOND_BLOCK}
+        - {x: 0, y: 0, z: 0, material: DIAMOND_BLOCK}
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 30.0
+     GRADIENT: NONE
+     EFFECT:
+         DAMAGE:
+           BLAZE: 1
+           CAVESPIDER: 1
+           CREEPER: 1
+           ENDERDRAGON: 1
+           ENDERMAN: 1
+           GHAST: 1
+           GIANT: 1
+           MAGMACUBE: 1
+           PIGZOMBIE: 1
+           SILVERFISH: 1
+           SKELETON: 1
+           SLIME: 1
+           SPIDER: 1
+           ZOMBIE: 1
+
+#7
+  -  NAME: LIGHTNING_ROD
+     STRUCTURE:
+        - {x: 1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: -1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: -1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 0, material: MOSSY_COBBLESTONE}
+        - {x: 0, y: 0, z: 0, material: MOSSY_COBBLESTONE}
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 30.0
+     GRADIENT: NONE
+     EFFECT:
+         LIGHTNING:
+           BLAZE: TRUE
+           CAVESPIDER: TRUE
+           CREEPER: TRUE
+           ENDERDRAGON: TRUE
+           ENDERMAN: TRUE
+           GHAST: TRUE
+           GIANT: TRUE
+           MAGMACUBE: TRUE
+           PIGZOMBIE: TRUE
+           SILVERFISH: TRUE
+           SKELETON: TRUE
+           SLIME: TRUE
+           SPIDER: TRUE
+           ZOMBIE: TRUE
+
+#8
+  -  NAME: TRANSMOGRIFIER
+     STRUCTURE:
+        - {x: 1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: -1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: -1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 0, material: LAPIS_BLOCK}
+        - {x: 0, y: 0, z: 0, material: LAPIS_BLOCK}
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 15.0
+     GRADIENT: NONE
+     EFFECT:
+         TRANSFORM:
+           ZOMBIE: PIG
+           CREEPER: SHEEP
+           SKELETON: CHICKEN
+           SPIDER: COW
+           ENDERMAN: SQUID
+           BLAZE: MUSHROOMCOW
+           WITCH: BAT
+
+#9
+  -  NAME: REVERSE_TRANSMOGRIFIER
+     STRUCTURE:
+        - {x: 1, y: 1, z: 0, material: JACK_O_LANTERN}
+        - {x: -1, y: 1, z: 0, material: JACK_O_LANTERN}
+        - {x: 0, y: 1, z: 1, material: JACK_O_LANTERN}
+        - {x: 0, y: 1, z: -1, material: JACK_O_LANTERN}
+        - {x: 0, y: 1, z: 0, material: LAPIS_BLOCK}
+        - {x: 0, y: 0, z: 0, material: LAPIS_BLOCK}
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 15.0
+     GRADIENT: NONE
+     EFFECT:
+         TRANSFORM:
+           PIG: ZOMBIE
+           SHEEP: CREEPER
+           CHICKEN: SKELETON
+           COW: SPIDER
+           MUSHROOMCOW: BLAZE
+           BAT: WITCH
+
+
+#10
+  -  NAME: DETONATOR
+     STRUCTURE:
+        - {x: 1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: -1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: -1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 0, material: TNT}
+        - {x: 0, y: 0, z: 0, material: TNT}
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 20.0
+     GRADIENT: NONE
+     EFFECT:
+         EXPLOSION:
+           BLAZE: 2
+           CAVESPIDER: 2
+           CREEPER: 2
+           ENDERDRAGON: 2
+           ENDERMAN: 2
+           GHAST: 2
+           GIANT: 2
+           MAGMACUBE: 2
+           PIGZOMBIE: 2
+           SILVERFISH: 2
+           SKELETON: 2
+           SLIME: 2
+           SPIDER: 2
+           ZOMBIE: 2
+           CHICKEN: 2
+           COW: 2
+           MUSHROOMCOW: 2
+           PIG: 2
+           SHEEP: 2
+           SQUID: 2
+           VILLAGER: 2
+           WOLF: 2
+           OCELOT: 2
+
+#11
+  -  NAME: INCINERATOR
+     STRUCTURE:
+        - {x: 1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: -1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: -1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 0, material: NETHERRACK}
+        - {x: 0, y: 0, z: 0, material: NETHERRACK}
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 20.0
+     GRADIENT: NONE
+     EFFECT:
+         FIRE:
+           BLAZE: 2
+           CAVESPIDER: 2
+           CREEPER: 2
+           ENDERDRAGON: 2
+           ENDERMAN: 2
+           GHAST: 2
+           GIANT: 2
+           MAGMACUBE: 2
+           PIGZOMBIE: 2
+           SILVERFISH: 2
+           SKELETON: 2
+           SLIME: 2
+           SPIDER: 2
+           ZOMBIE: 2
+           CHICKEN: 2
+           COW: 2
+           MUSHROOMCOW: 2
+           PIG: 2
+           SHEEP: 2
+           SQUID: 2
+           VILLAGER: 2
+
+#12
+  -  NAME: KENNEL
+     STRUCTURE:
+        - {x: 1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: -1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: -1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 0, material: WOOD}
+        - {x: 0, y: 0, z: 0, material: WOOD}
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR: NONE
+     RANGE: 20.0
+     GRADIENT: NONE
+     EFFECT:
+         HEAL:
+           WOLF: 1
+           OCELOT: 1
+           
+############# TEST POTION EFFECT FEATURE################### 
+  -  NAME: POTION
+     STRUCTURE:
+        - {x: 1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: -1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: -1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 0, material: EMERALD_BLOCK}
+        - {x: 0, y: 0, z: 0, material: EMERALD_BLOCK}
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR: NONE
+     RANGE: 20.0
+     GRADIENT: NONE
+     EFFECT:
+         POTION_EFFECT:
+           PLAYER: SLOW
+           BLAZE: SPEED
+           CAVESPIDER: SPEED
+           CREEPER: SPEED
+           ENDERMAN: SPEED
+           GHAST: SPEED
+           GIANT: SPEED
+           MAGMACUBE: SPEED
+           PIGZOMBIE: SPEED
+           SILVERFISH: SPEED
+           SKELETON: SPEED
+           SLIME: SPEED           
+           SPIDER: SPEED
+           ZOMBIE: SLOW
+           WITCH: SPEED
+           BAT: SPEED
+           CHICKEN: SPEED
+           COW: SPEED
+           IRONGOLEM: SPEED
+           MUSHROOMCOW: SPEED
+           OCELOT: SPEED
+           PIG: SPEED
+           SHEEP: SPEED
+           SNOWMAN: SPEED
+           SQUID: SPEED
+           VILLAGER: SPEED
+           WOLF: SPEED
+##########END POTION EFFECT FEATURE TEST####################
+
+##########GRADIENT FEATURE TEST#############################
+  -  NAME: LINEAR_HEALING
+     STRUCTURE:
+        - {x: 0, y: 0, z: 0, material: MELON_BLOCK}
+        - {x: 0, y: 1, z: 0, material: MELON_BLOCK}
+        - {x: 1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: -1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: -1, material: GLOWSTONE}        
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 100.0
+     GRADIENT: LINEAR
+     EFFECT:
+         HEAL:
+           PLAYER: 20
+           
+  -  NAME: QUADRATIC_HEALING
+     STRUCTURE:
+        - {x: 0, y: 0, z: 0, material: LAPIS_ORE}
+        - {x: 0, y: 1, z: 0, material: LAPIS_ORE}
+        - {x: 1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: -1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: -1, material: GLOWSTONE}        
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 100.0
+     GRADIENT: QUADRATIC
+     EFFECT:
+         HEAL:
+           PLAYER: 20
+           
+  -  NAME: QUADRATIC_HEALING
+     STRUCTURE:
+        - {x: 0, y: 0, z: 0, material: PUMPKIN}
+        - {x: 0, y: 1, z: 0, material: PUMPKIN}
+        - {x: 1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: -1, y: 1, z: 0, material: GLOWSTONE}
+        - {x: 0, y: 1, z: 1, material: GLOWSTONE}
+        - {x: 0, y: 1, z: -1, material: GLOWSTONE}        
+        - {x: 1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: -1, y: 0, z: 0, material: OBSIDIAN}
+        - {x: 0, y: 0, z: 1, material: OBSIDIAN}
+        - {x: 0, y: 0, z: -1, material: OBSIDIAN}
+     ROTATOR:  NONE
+     RANGE: 100.0
+     GRADIENT: EXPONENTIAL
+     EFFECT:
+         HEAL:
+           PLAYER: 20
+           
+###################GRADIENT FEATURE TEST########################
