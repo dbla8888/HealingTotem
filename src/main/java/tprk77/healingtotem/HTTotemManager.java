@@ -431,12 +431,14 @@ public class HTTotemManager {
 			return null;
 		}
 
+		//TODO: Allow users to choose between Spherical, Ellipsoid, Cylindrical,
+		//Cubic, or Rectangular Cuboid ranges for totems.
 		double range = node.getDouble("RANGE", Double.NaN);
 		if(Double.isNaN(range)){
 			this.plugin.warn("totem type's range is not set");
 			return null;
 		}
-		//TODO: add more information about gradients into the config file, perhaps
+		//TODO: Add more information about gradients into the config file, perhaps
 		//links to graphs or something.  Or maybe we should just wait until we are
 		//at a mature stage in the plugin and make a Youtube video explaining
 		//it all.  Or both.  Whatever.

@@ -38,6 +38,8 @@ public class LivingEntityProcessor
 		period = durationPeriod;
 	}
 
+	//TODO: Add invincibility as a totem effect
+	//TODO: Add totem effect that prevents players from interacting with blocks, using items, ect.
     public boolean process(LivingEntity entity, List<Totem> totems)
     {
     	//System.out.println(getEntityName(entity));//DEBUG
@@ -51,7 +53,7 @@ public class LivingEntityProcessor
             if(power > 0 && !canbehealed) power = 0;
             if(power < 0 && !canbedamaged) power = 0;
     			//System.out.println("Power: " + power );//DEBUG
-            //TODO: integrate with that plugin that allows you to transform players
+            //TODO: Integrate with that plugin that allows you to transform players into mobs
             //this.applyTransform(entity, totems);
             this.applyHeal(entity, power);
             this.applyPotionEffect(entity, totems);
@@ -208,7 +210,7 @@ public class LivingEntityProcessor
         }
     }
 
-    //TODO:  change potion effects in config to a list of effects, so we can apply
+    //TODO:  Change potion effects in config to a list of effects, so we can apply
     //multiple effects per entity.  Include effect amplifier and duration.  
     //Make necessary code changes.
     protected void applyPotionEffect(LivingEntity entity, List<Totem> totems)

@@ -56,7 +56,13 @@ public class Structure {
 	public StructureType getStructureType(){
 		return this.structuretype;
 	}
-
+	
+	//TODO: Use of a block as the 'location' of a totem causes 
+	//un-intuitive behavior regarding calculating distances 
+	//from the totem, because the block location is not the center
+	//of the block, but the bottom south-east corner of the block.
+	//I think it would be better to use a org.bukkit.Location and 
+	//pick the center of mass of the totem, but I'm open to other ideas. 
 	public Block getRootBlock(){
 		return this.rootblock;
 	}

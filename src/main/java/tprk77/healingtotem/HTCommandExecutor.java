@@ -26,7 +26,7 @@ public class HTCommandExecutor implements CommandExecutor {
 		{
             if (args.length > 0) 
             {//if there are any arguments, do nothing
-            	//TODO: send meaningful error message
+            	//TODO: Should send meaningful error message.
                 return false;
             }
             

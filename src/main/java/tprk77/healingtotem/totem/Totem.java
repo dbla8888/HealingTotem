@@ -12,9 +12,9 @@ import tprk77.util.structure.Structure;
 public class Totem extends Structure {
 
 	private final TotemType totemtype;
-        private String owner;
+    private String owner;
 
-        //if there is no owner, the owner is set to null
+    //if there is no owner, the owner is set to null
 	public Totem(TotemType totemtype, Block block)
         {
 		this(totemtype, block, null);
@@ -32,7 +32,7 @@ public class Totem extends Structure {
 		return this.totemtype;
 	}
         
-        public String getOwner()
+    public String getOwner()
         {
 		return this.owner;
 	}

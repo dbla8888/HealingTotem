@@ -13,11 +13,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Plugin class for this plugin (clearly). Creates new instances of the 
- * TotemManager, BlockListener, and HealerRunnable classes, manages the logging
- * of messages to the server, and handles cleanup on server stop. Also handles
- * command usage.
- * @author tim, modification by Aaron
+ * TotemManager, BlockListener, CommandExecutor and HealerRunnable classes, 
+ * manages the logging of messages to the server, and handles cleanup on 
+ * server stop.
+ * @author tim, Aaron
  */
+//TODO: There is a need for the entire project to be put into a consistent
+//style, along with documentation.
 public final class HTPlugin extends JavaPlugin {
 
 	private static final Logger log = Logger.getLogger("Minecraft");
@@ -93,7 +95,8 @@ public final class HTPlugin extends JavaPlugin {
      */
 	protected FileConfiguration getTotemsFile() 
     {
-        if (totemConfig == null) {
+        if (totemConfig == null) 
+        {
             this.loadTotemsFile();
         }
         return totemConfig;

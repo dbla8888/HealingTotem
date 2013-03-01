@@ -1,11 +1,6 @@
-This is a fork from tprk77's original healingtotem plugin for bukkit.  It has been heavily modified 
-and extended to provide support for many other effects and targets than in the original plugin.
+This is a fork from tprk77's original healingtotem plugin for bukkit.  It has been heavily modified and extended to provide support for many other effects and targets than in the original plugin.
 
-The plugin allows you to define custom structures that, when built in the game, effect living 
-entities in the game world in some way.  They structure can be anything you can imagine, with 
-no limitations on size or material.  The effects can be things ranging from health regeneration, 
-to transforming one entity into another.  The full list of effects can be viewed in the default 
+The plugin allows you to define custom structures that, when built in the game, effect living entities in the game world in some way.  They structure can be anything you can imagine, with no limitations on size or material.  The effects can be things ranging from health regeneration, to transforming one entity into another.  The full list of effects can be viewed in the default 
 config.yml file, along with details about defining structures and targets.
 
-This plugin is only intended for use on my personal server, and as such I make no warranty about
-its stability or utility.  Use at your own risk.
+This plugin is only intended for use on my personal server, and as such I make no warranty about its stability or utility.  Use at your own risk.
