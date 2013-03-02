@@ -10,9 +10,8 @@ GLOBAL:
 TOTEMTYPES:
 
 ######################################
-#  This is the basic format of a totem
-#  all effects are optional, valid input
-#  for rotator are NONE, Y_ONLY, and ALL.
+#  This is the basic format of a totem,
+#  all effects are optional.
 #  A list of valid materials can be found
 #  at: http://jd.bukkit.org/rb/apidocs/org/bukkit/Material.html
 #  A list of valid potion effects can be
@@ -21,7 +20,7 @@ TOTEMTYPES:
 #  -  NAME: 
 #     STRUCTURE:
 #        - {x: , y: , z: , material: }
-#     ROTATOR:  NONE
+#     ROTATOR:  NONE                   NONE, Y_ONLY, or ALL.
 #     RANGE: 15.0
 #     GRADIENT: NONE                   NONE, LINEAR, QUADRATIC, or EXPONENTIAL
 #     EFFECT:
@@ -39,6 +38,10 @@ TOTEMTYPES:
 #           SPIDER: 5                  seconds, integer
 #         LIGHTNING:
 #           SKELETON: TRUE             true/false
+#         POTION_EFFECT:
+#           PLAYER: 
+#             - {TYPE: SPEED, DURATION: 10, POWER: 1}
+#             - {TYPE: INVISIBILITY, DURATION: 10, POWER: 1}
 ######################################
 # A list of supported entities is listed here:
 # 
@@ -434,15 +437,15 @@ TOTEMTYPES:
            WOLF: 1
            OCELOT: 1
            
-############# TEST POTION EFFECT FEATURE################### 
-  -  NAME: POTION
+
+  -  NAME: INVISIBILITY
      STRUCTURE:
         - {x: 1, y: 1, z: 0, material: GLOWSTONE}
         - {x: -1, y: 1, z: 0, material: GLOWSTONE}
         - {x: 0, y: 1, z: 1, material: GLOWSTONE}
         - {x: 0, y: 1, z: -1, material: GLOWSTONE}
-        - {x: 0, y: 1, z: 0, material: EMERALD_BLOCK}
-        - {x: 0, y: 0, z: 0, material: EMERALD_BLOCK}
+        - {x: 0, y: 1, z: 0, material: GLASS}
+        - {x: 0, y: 0, z: 0, material: GLASS}
         - {x: 1, y: 0, z: 0, material: OBSIDIAN}
         - {x: -1, y: 0, z: 0, material: OBSIDIAN}
         - {x: 0, y: 0, z: 1, material: OBSIDIAN}
@@ -452,34 +455,8 @@ TOTEMTYPES:
      GRADIENT: NONE
      EFFECT:
          POTION_EFFECT:
-           PLAYER: SLOW
-           BLAZE: SPEED
-           CAVESPIDER: SPEED
-           CREEPER: SPEED
-           ENDERMAN: SPEED
-           GHAST: SPEED
-           GIANT: SPEED
-           MAGMACUBE: SPEED
-           PIGZOMBIE: SPEED
-           SILVERFISH: SPEED
-           SKELETON: SPEED
-           SLIME: SPEED           
-           SPIDER: SPEED
-           ZOMBIE: SLOW
-           WITCH: SPEED
-           BAT: SPEED
-           CHICKEN: SPEED
-           COW: SPEED
-           IRONGOLEM: SPEED
-           MUSHROOMCOW: SPEED
-           OCELOT: SPEED
-           PIG: SPEED
-           SHEEP: SPEED
-           SNOWMAN: SPEED
-           SQUID: SPEED
-           VILLAGER: SPEED
-           WOLF: SPEED
-##########END POTION EFFECT FEATURE TEST####################
+           PLAYER: 
+              - {TYPE: INVISIBILITY, DURATION: 10, POWER: 1}
 
 ##########GRADIENT FEATURE TEST#############################
   -  NAME: LINEAR_HEALING

@@ -7,7 +7,7 @@ import tprk77.healingtotem.totem.Totem;
 import org.bukkit.scheduler.BukkitScheduler;
 
 /**
- * This class logically represents the process which handles executing the
+ * This class handles executing the
  * effects of totems in the game world. 
  * @author tim, Aaron
  */
@@ -25,10 +25,10 @@ public class HTHealerRunnable implements Runnable {
         period = this.plugin.getTotemManager().getEffectInterval();
                 
         processor = new LivingEntityProcessor(
+                        this.plugin,
                     	this.plugin.getServer().getPluginManager(),
                     	this.plugin.getTotemManager().getStackedHeal(),
-                    	this.plugin.getTotemManager().getStackedDamage(),
-                    	period);
+                    	this.plugin.getTotemManager().getStackedDamage());
     }
 	
 	public void schedule()

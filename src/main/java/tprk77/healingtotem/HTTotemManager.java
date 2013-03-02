@@ -33,10 +33,8 @@ import tprk77.util.structure.StructureType;
 public class HTTotemManager {
 
 	private final HTPlugin plugin;
-
 	private final String TOTEM_TYPES_FILENAME = "config.yml";
-	//private final String TOTEM_FILENAME = "totems.yml";
-
+	//private final String TOTEM_FILENAME = "totems.yml";  //Don't remove
 	private List<TotemType> totemtypes;
 	private List<Totem> totems;
     private int stacked_heal;
@@ -112,6 +110,32 @@ public class HTTotemManager {
         return this.totemsperplayer;
 	}
 
+    public Set<Totem> getTotemsFromBlock(Block block)
+	    {
+	        BlockHashable bh = new BlockHashable(block);
+	        Set<Totem> totemset = this.blockhash.get(bh);
+	        if(totemset == null) return null;
+	        return new HashSet<Totem>(totemset);
+	    }
+	        
+    public Set<Totem> getTotemsFromPlayer(Player player)
+	    {
+	        String owner = player.getName();
+	        Set<Totem> totemset = this.ownerhash.get(owner);
+	        if(totemset == null) return null;
+	        return new HashSet<Totem>(totemset);
+	    }
+
+    public TotemType getTotemType(String name)
+	    {
+	        for(TotemType type : this.totemtypes){
+	            if(type.getName().equals(name)){
+	                return type;
+	            }
+	        }
+	        return null;
+	    }
+	
 	public void addTotem(Totem totem)
     {
 		this.totems.add(totem);
@@ -180,32 +204,6 @@ public class HTTotemManager {
 				this.worldTotemsHash.remove(totem.getWorld());
 			}
 		}
-	}
-
-	public Set<Totem> getTotemsFromBlock(Block block)
-    {
-        BlockHashable bh = new BlockHashable(block);
-		Set<Totem> totemset = this.blockhash.get(bh);
-		if(totemset == null) return null;
-		return new HashSet<Totem>(totemset);
-	}
-        
-    public Set<Totem> getTotemsFromPlayer(Player player)
-    {
-		String owner = player.getName();
-		Set<Totem> totemset = this.ownerhash.get(owner);
-		if(totemset == null) return null;
-		return new HashSet<Totem>(totemset);
-	}
-
-	public TotemType getTotemType(String name)
-    {
-		for(TotemType type : this.totemtypes){
-			if(type.getName().equals(name)){
-				return type;
-			}
-		}
-		return null;
 	}
         
 	public void loadTotemTypesOrDefault()
@@ -369,6 +367,7 @@ public class HTTotemManager {
 		return totem;
 	}
 	
+	//Don't remove 
 /*
 	private List<Object> structuretype2yaml(StructureType structuretype)
     {
@@ -465,7 +464,7 @@ public class HTTotemManager {
 			rotator = Rotator.getDefault();
 		}
                 
-                ConfigurationSection effectsNode = node.getConfigurationSection("EFFECT");
+        ConfigurationSection effectsNode = node.getConfigurationSection("EFFECT");
 		if(effectsNode == null){
 			this.plugin.warn("totem has no effects");
 			return null;
@@ -494,6 +493,7 @@ public class HTTotemManager {
 		return new TotemType(name, effectsNode, range, structuretype, rotator, gradient);
 	}
 
+	//Don't remove 
 	/*
 	private Map<String, Object> totemtype2yaml(TotemType totemtype)
     {
@@ -533,6 +533,9 @@ public class HTTotemManager {
                 //gets the effect interval from the config file in seconds and
                 //converts it to ticks.  If the interval is less than a second,
                 //set the interval to 1 second and warn the user
+		//TODO:  Eventually want to allow each totem to have its own effect intervals.
+		//Consider taking the lcm of all intervals and doing some intelligent counting
+		//so that we don't have to restructure the runnable.
         effect_interval = node.getInt("EFFECT_INTERVAL", 1);
 		if(effect_interval < 1)
         {
@@ -559,7 +562,7 @@ public class HTTotemManager {
         //System.out.println("Quiet: " + quiet);//DEBUG
     }
         
-    private List<ConfigurationSection> mapListToConfigSectionList(List<Map<?,?>> maps)
+    public List<ConfigurationSection> mapListToConfigSectionList(List<Map<?,?>> maps)
         {
             LinkedList<ConfigurationSection> nodes = new LinkedList<ConfigurationSection>();
             nodes.clear();

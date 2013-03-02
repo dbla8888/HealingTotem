@@ -19,7 +19,9 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author tim, Aaron
  */
 //TODO: There is a need for the entire project to be put into a consistent
-//style, along with documentation.
+//style, along with documentation.  Also the access protection of just about
+//everything needs to be looked at.  Oh and the testing.  Dear Lord do we 
+//need some testing.
 public final class HTPlugin extends JavaPlugin {
 
 	private static final Logger log = Logger.getLogger("Minecraft");

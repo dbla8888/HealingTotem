@@ -1,11 +1,13 @@
 package tprk77.healingtotem;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.bukkit.DyeColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -21,21 +23,20 @@ import tprk77.healingtotem.totem.Totem;
 
 public class LivingEntityProcessor
 {		
-	private final PluginManager eventcaller;
+	private final PluginManager eventCaller;
+	private final HTPlugin plugin;
 	private final int stackedheal;
 	private final int stackeddamage;
-    int yield;
     Random random = new Random();
-    byte[] randomcolor = new byte[1];
-    
-    private final int period;
+    byte[] randomcolor = new byte[1];  
 
-	public LivingEntityProcessor(PluginManager eventcaller, int stackedheal, int stackeddamage, int durationPeriod)
+
+	public LivingEntityProcessor(HTPlugin plugin, PluginManager eventCaller, int stackedheal, int stackeddamage)
     {
-		this.eventcaller = eventcaller;
-		this.stackedheal = stackedheal;
+		this.eventCaller = eventCaller;
+		this.plugin = plugin;
+		this.stackedheal = stackedheal;		
 		this.stackeddamage = stackeddamage;
-		period = durationPeriod;
 	}
 
 	//TODO: Add invincibility as a totem effect
@@ -120,7 +121,7 @@ public class LivingEntityProcessor
 		if(power > 0){
 			EntityRegainHealthEvent regen = new EntityRegainHealthEvent(
 							entity, power, EntityRegainHealthEvent.RegainReason.CUSTOM);
-			this.eventcaller.callEvent(regen);
+			this.eventCaller.callEvent(regen);
 			if(!regen.isCancelled()){
 				int newhealth = entity.getHealth() + regen.getAmount();
 				if(newhealth < 0){
@@ -133,7 +134,7 @@ public class LivingEntityProcessor
 		}else if(power < 0){
 			EntityDamageEvent damage = new EntityDamageEvent(
 				entity, EntityDamageEvent.DamageCause.CUSTOM, -power);
-			this.eventcaller.callEvent(damage);
+			this.eventCaller.callEvent(damage);
 			if(!damage.isCancelled()){
 				entity.damage(damage.getDamage());
 			}
@@ -148,11 +149,14 @@ public class LivingEntityProcessor
     				"LIGHTNING." + getEntityName(entity), false ))
             {
                  entity.getWorld().strikeLightning(entity.getLocation());
+                 break;
             }
                     
         }
     }
-            
+    
+    //TODO: Should check against all totems and apply the transform specified by the
+    //closest totem.
     protected void applyTransform(Entity entity, List<Totem> totems)
     {
         for(Totem totem : totems)
@@ -181,13 +185,12 @@ public class LivingEntityProcessor
             }
         }
     }
-            
+    
     protected void applyExplosion(LivingEntity entity, List<Totem> totems)
     {
         for(Totem totem : totems)
         {
-            yield = totem.getTotemType().getEffects().getInt("EXPLOSION" + "." + 
-            		getEntityName(entity), 0);
+            int yield = sumTotemEffectPower(entity, totems, "EXPLOSION");
             if(totem.inRange(entity) && yield > 0)
             {
                 entity.getWorld().createExplosion(
@@ -196,7 +199,7 @@ public class LivingEntityProcessor
             }
         }
     }
-            
+    
     protected void applyFire(LivingEntity entity, List<Totem> totems)
     {
         for(Totem totem : totems)
@@ -204,31 +207,33 @@ public class LivingEntityProcessor
         	if(totem.inRange(entity) && totem.getTotemType().getEffects().getInt("FIRE" + "." + 
         			getEntityName(entity), 0) > 0)
             {
-                entity.setFireTicks(period);
+                entity.setFireTicks(sumTotemEffectPower(entity, totems, "FIRE")*20);
                 break;
             }
         }
     }
 
-    //TODO:  Change potion effects in config to a list of effects, so we can apply
-    //multiple effects per entity.  Include effect amplifier and duration.  
-    //Make necessary code changes.
     protected void applyPotionEffect(LivingEntity entity, List<Totem> totems)
     {
         for(Totem totem : totems)
         {
-        	if(totem.inRange(entity) && !totem.getTotemType().getEffects().getString("POTION_EFFECT" + "." + 
-        			getEntityName(entity), "").equals(""))
+            List<Map<?,?>> nodes = totem.getTotemType().getEffects().getMapList("POTION_EFFECT"+ "." + 
+                    getEntityName(entity));
+            List<ConfigurationSection> potionTypeNodes = this.plugin.getTotemManager().mapListToConfigSectionList(nodes);                
+        	if(totem.inRange(entity) && nodes != null)
             {
+        	    for(ConfigurationSection node: potionTypeNodes)
+        	    {
+        	    
         		PotionEffect potEff = PotionEffectType.getByName(
-        				totem.getTotemType().getEffects().getString("POTION" + "." 
-        				+ getEntityName(entity))).createEffect(period, 1);
+        				node.getString("TYPE", "HEAL")).createEffect(
+        				        node.getInt("DURATION", 0)*20, (node.getInt("POWER", 1) - 1));
         		//DEBUG
 //        		System.out.println("Added potion effect " + potEff.getType().getName()+ 
 //        				" with amplifier " + potEff.getAmplifier()+" and duration " + 
-//        				potEff.getDuration()+" " + (period-1) + " to " + getEntityName(entity));
+//        				potEff.getDuration() + " to " + getEntityName(entity));
                 entity.addPotionEffect(potEff);
-                break;
+        	    }
             }
         }
     }
@@ -237,4 +242,5 @@ public class LivingEntityProcessor
 	{
 		return entity.getClass().getName().substring(43).toUpperCase();
 	}
+    
 }
