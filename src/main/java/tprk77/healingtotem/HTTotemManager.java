@@ -30,8 +30,8 @@ import tprk77.util.structure.StructureType;
  * and manages the loading and storage of created totems.
  * @author tim, Aaron
  */
-public class HTTotemManager {
-
+public class HTTotemManager 
+{
 	private final HTPlugin plugin;
 	private final String TOTEM_TYPES_FILENAME = "config.yml";
 	//private final String TOTEM_FILENAME = "totems.yml";  //Don't remove
@@ -98,7 +98,7 @@ public class HTTotemManager {
     public boolean isLightning()
     {
         return this.lightning;
-}
+    }
 
 	public boolean isQuiet()
     {
@@ -111,30 +111,32 @@ public class HTTotemManager {
 	}
 
     public Set<Totem> getTotemsFromBlock(Block block)
-	    {
-	        BlockHashable bh = new BlockHashable(block);
-	        Set<Totem> totemset = this.blockhash.get(bh);
-	        if(totemset == null) return null;
-	        return new HashSet<Totem>(totemset);
-	    }
+    {
+        BlockHashable bh = new BlockHashable(block);
+        Set<Totem> totemset = this.blockhash.get(bh);
+        if(totemset == null) return null;
+        return new HashSet<Totem>(totemset);
+    }
 	        
     public Set<Totem> getTotemsFromPlayer(Player player)
-	    {
-	        String owner = player.getName();
-	        Set<Totem> totemset = this.ownerhash.get(owner);
-	        if(totemset == null) return null;
-	        return new HashSet<Totem>(totemset);
-	    }
+    {
+        String owner = player.getName();
+        Set<Totem> totemset = this.ownerhash.get(owner);
+        if(totemset == null) return null;
+        return new HashSet<Totem>(totemset);
+    }
 
     public TotemType getTotemType(String name)
-	    {
-	        for(TotemType type : this.totemtypes){
-	            if(type.getName().equals(name)){
-	                return type;
-	            }
-	        }
-	        return null;
-	    }
+    {
+        for(TotemType type : this.totemtypes)
+        {
+            if(type.getName().equals(name))
+            {
+                return type;
+            }
+        }
+        return null;
+    }
 	
 	public void addTotem(Totem totem)
     {
@@ -143,12 +145,15 @@ public class HTTotemManager {
 		Set<Totem> existing;
 		
 		// add to block hash
-		for(Block block : totem.getBlocks()){
+		for(Block block : totem.getBlocks())
+		{
 			BlockHashable bh = new BlockHashable(block);
 			existing = this.blockhash.get(bh);
-			if(existing == null){
+			if(existing == null)
+			{
 				this.blockhash.put(bh, new HashSet<Totem>(Arrays.asList(totem)));
-			}else{
+			}else
+			{
 				existing.add(totem);
 			}
 		}
@@ -156,9 +161,11 @@ public class HTTotemManager {
         // add to owner hash
 		String owner = totem.getOwner();
 		existing = this.ownerhash.get(owner);
-		if(existing == null){
+		if(existing == null)
+		{
 			this.ownerhash.put(owner, new HashSet<Totem>(Arrays.asList(totem)));
-		}else{
+		}else
+		{
 			existing.add(totem);
 		}
 		
@@ -166,7 +173,8 @@ public class HTTotemManager {
 		if(this.worldTotemsHash.get(totem.getWorld()) == null)
 		{
 			this.worldTotemsHash.put(totem.getWorld(), new HashSet<Totem>(Arrays.asList(totem)));
-		}else{
+		}else
+		{
 			this.worldTotemsHash.get(totem.getWorld()).add(totem);
 		}
 	}
@@ -178,11 +186,13 @@ public class HTTotemManager {
 		Set<Totem> existing;
 		
 		// remove from block hash
-		for(Block block : totem.getBlocks()){
+		for(Block block : totem.getBlocks())
+		{
 			BlockHashable bh = new BlockHashable(block);
 			existing = this.blockhash.get(bh);
 			existing.remove(totem);
-			if(existing.isEmpty()){
+			if(existing.isEmpty())
+			{
 				this.blockhash.remove(bh);
 			}
 		}
@@ -191,7 +201,8 @@ public class HTTotemManager {
 		String owner = totem.getOwner();
 		existing = this.ownerhash.get(owner);
 		existing.remove(totem);
-		if(existing.isEmpty()){
+		if(existing.isEmpty())
+		{
 			this.ownerhash.remove(owner);
 		}
 		
@@ -209,13 +220,16 @@ public class HTTotemManager {
 	public void loadTotemTypesOrDefault()
     {
 		File totemtypesfile = new File(this.plugin.getDataFolder(), this.TOTEM_TYPES_FILENAME);
-		if(!totemtypesfile.exists()){
-			try{
+		if(!totemtypesfile.exists())
+		{
+			try
+			{
 				this.plugin.log("No "+ TOTEM_TYPES_FILENAME + 
 						" found. Loading default "+ TOTEM_TYPES_FILENAME);
 				this.plugin.saveDefaultConfig();
 				this.plugin.reloadConfig();
-			}catch(Exception ex){
+			}catch(Exception ex)
+			{
 				this.plugin.warn("Error loading "+ TOTEM_TYPES_FILENAME);
 			}
 		}
@@ -247,9 +261,11 @@ public class HTTotemManager {
 		 * Sort the TotemTypes by structure size. This way, larger totems will be
 		 * found before smaller totems (and possibly subtotems).
 		*/ 
-		Collections.sort(this.totemtypes, new Comparator<TotemType>(){
+		Collections.sort(this.totemtypes, new Comparator<TotemType>()
+        {
 
-			public int compare(TotemType o1, TotemType o2){
+			public int compare(TotemType o1, TotemType o2)
+			{
 				return o1.getStructureType().getBlockCount()
 								- o2.getStructureType().getBlockCount();
 			}
@@ -272,15 +288,17 @@ public class HTTotemManager {
         List<ConfigurationSection> nodelist = this.mapListToConfigSectionList(nodes);
         //this.plugin.log(nodelist.size() + " totems found");//DEBUG
         
-		for(ConfigurationSection node : nodelist){
+		for(ConfigurationSection node : nodelist)
+		{
 			Totem totem = this.yaml2totem(node);                  
-			if(totem == null){
+			if(totem == null)
+			{
 				this.plugin.warn("a totem couldn't be loaded");
-			}else{
+			}else
+			{
 				this.addTotem(totem);
 			}
 		}
-
 		this.plugin.log("loaded " + this.totems.size() + " totems");
 	}
 
@@ -289,7 +307,8 @@ public class HTTotemManager {
                 
 		List<Object> yamllist = new ArrayList<Object>();
 
-		for(Totem totem : this.totems){
+		for(Totem totem : this.totems)
+		{
 			yamllist.add(this.totem2yaml(totem));
 		}
 
@@ -309,18 +328,21 @@ public class HTTotemManager {
 		yamlmap.put("type", totem.getTotemType().getName());
                 
         String owner = totem.getOwner();
-		if(totem.getOwner() != null){
+		if(totem.getOwner() != null)
+		{
 			yamlmap.put("owner", owner);
-		}else{                                                          //test code
-                    yamlmap.put("owner", "gaia");
-                }
+		}else
+		{
+            yamlmap.put("owner", "gaia");//test code
+        }
 		return yamlmap;
 	}
 
 	private Totem yaml2totem(ConfigurationSection node)
     {
 		String worldstr = node.getString("world", null);
-		if(worldstr == null){
+		if(worldstr == null)
+		{
 			this.plugin.warn("totem's world is not set");
 			return null;
 		}
@@ -328,30 +350,35 @@ public class HTTotemManager {
 		int x = node.getInt("x", Integer.MIN_VALUE);
 		int y = node.getInt("y", Integer.MIN_VALUE);
 		int z = node.getInt("z", Integer.MIN_VALUE);
-		if(x == Integer.MIN_VALUE || y == Integer.MIN_VALUE || z == Integer.MIN_VALUE){
+		if(x == Integer.MIN_VALUE || y == Integer.MIN_VALUE || z == Integer.MIN_VALUE)
+		{
 			this.plugin.warn("totem's x, y, or z is not set");
 			return null;
 		}
                 
 		String totemtypestr = node.getString("type", null);
-		if(totemtypestr == null){
+		if(totemtypestr == null)
+		{
 			this.plugin.warn("totem's type is not set");
 			return null;
 		}
 
 		World world = this.plugin.getServer().getWorld(worldstr);
-		if(world == null){
+		if(world == null)
+		{
 			this.plugin.warn("totem's world is not recognized");
 			return null;
 		}
                 
         String owner = node.getString("owner", null);
-		if(owner == null){
+		if(owner == null)
+		{
 			this.plugin.warn("totem's owner is not set");
 		}
 
 		TotemType totemtype = this.getTotemType(totemtypestr);
-		if(totemtype == null){
+		if(totemtype == null)
+		{
 			this.plugin.warn("totem's type is not recognized");
 			return null;
 		}
@@ -359,7 +386,8 @@ public class HTTotemManager {
 		Block block = world.getBlockAt(x, y, z);
 		Totem totem = new Totem(totemtype, block, owner);
 
-		if(!totem.verifyStructure()){
+		if(!totem.verifyStructure())
+		{
 			this.plugin.warn("totem's structure was bad");
 			return null;
 		}
@@ -389,23 +417,27 @@ public class HTTotemManager {
 	private StructureType yaml2structuretype(List<ConfigurationSection> nodes)
     {
 		StructureType.Prototype prototype = new StructureType.Prototype();
-		for(ConfigurationSection node : nodes){
+		for(ConfigurationSection node : nodes)
+		{
 			int x = node.getInt("x", Integer.MIN_VALUE);
 			int y = node.getInt("y", Integer.MIN_VALUE);
 			int z = node.getInt("z", Integer.MIN_VALUE);
-			if(x == Integer.MIN_VALUE || y == Integer.MIN_VALUE || z == Integer.MIN_VALUE){
+			if(x == Integer.MIN_VALUE || y == Integer.MIN_VALUE || z == Integer.MIN_VALUE)
+			{
 				this.plugin.warn("structure's x, y, or z is not set");
 				return null;
 			}
 
 			String materialstr = node.getString("material", null);
-			if(materialstr == null){
+			if(materialstr == null)
+			{
 				this.plugin.warn("structure's material is not set");
 				return null;
 			}
 
 			Material material = Material.matchMaterial(materialstr);
-			if(material == null){
+			if(material == null)
+			{
 				this.plugin.warn("structure's material is not recognized");
 				return null;
 			}
@@ -425,7 +457,8 @@ public class HTTotemManager {
     {
 
 		String name = node.getString("NAME",null);
-		if(name == null){
+		if(name == null)
+		{
 			this.plugin.warn("A totem type's name is not set");
 			return null;
 		}
@@ -433,7 +466,8 @@ public class HTTotemManager {
 		//TODO: Allow users to choose between Spherical, Ellipsoid, Cylindrical,
 		//Cubic, or Rectangular Cuboid ranges for totems.
 		double range = node.getDouble("RANGE", Double.NaN);
-		if(Double.isNaN(range)){
+		if(Double.isNaN(range))
+		{
 			this.plugin.warn("totem type's range is not set");
 			return null;
 		}
@@ -453,39 +487,44 @@ public class HTTotemManager {
 		}
 
 		String rotatorstr = node.getString("ROTATOR", null);
-		if(rotatorstr == null){
+		if(rotatorstr == null)
+		{
 			this.plugin.warn("totem type's rotator is not set");
 			rotatorstr = ":(";
 		}
 
 		Rotator rotator = Rotator.matchRotator(rotatorstr);
-		if(rotator == null){
+		if(rotator == null)
+		{
 			this.plugin.warn("Totem type's rotator is not valid, using default");
 			rotator = Rotator.getDefault();
 		}
                 
         ConfigurationSection effectsNode = node.getConfigurationSection("EFFECT");
-		if(effectsNode == null){
+		if(effectsNode == null)
+		{
 			this.plugin.warn("totem has no effects");
 			return null;
 		}
 
-
         List<Map<?,?>> nodes = node.getMapList("STRUCTURE");
         List<ConfigurationSection> structuretypenodes = this.mapListToConfigSectionList(nodes);                
                 
-		if(structuretypenodes.isEmpty()){
+		if(structuretypenodes.isEmpty())
+		{
 			this.plugin.warn("totem type's structure is not set");
 			return null;
 		}
 
 		StructureType structuretype = this.yaml2structuretype(structuretypenodes);
-		if(structuretype == null){
+		if(structuretype == null)
+		{
 			this.plugin.warn("totem type's structure is not valid");
 			return null;
 		}
 
-		if(structuretype.getBlockCount() < 3){
+		if(structuretype.getBlockCount() < 3)
+		{
 			this.plugin.warn("For technical reasons, the structure's block count must be at least 3.");
 			return null;
 		}
@@ -519,15 +558,15 @@ public class HTTotemManager {
         stacked_heal = node.getInt("STACKED_HEALING_MAXIMUM", 0);
 		if(stacked_heal > 20 || stacked_heal < 0)
 		{
-                    stacked_heal = 0;
-                    this.plugin.warn("MAXIMUM STACKED HEALING SET TO 0!");
+            stacked_heal = 0;
+            this.plugin.warn("MAXIMUM STACKED HEALING SET TO 0!");
 		}
                 
         stacked_damage = node.getInt("STACKED_DAMAGE_MAXIMUM", 0);
 		if(stacked_damage > 20 || stacked_damage < 0)
 		{
-                    stacked_damage = 0;
-                    this.plugin.warn("MAXIMUM STACKED DAMAGE SET TO 0!");
+            stacked_damage = 0;
+            this.plugin.warn("MAXIMUM STACKED DAMAGE SET TO 0!");
 		}
                 
                 //gets the effect interval from the config file in seconds and

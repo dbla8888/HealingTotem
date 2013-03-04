@@ -10,7 +10,8 @@ import java.util.Map;
  *
  * @author tim
  */
-public enum Rotator {
+public enum Rotator 
+{
 	NONE(Arrays.asList(
 	new BlockOffset(0, 0, 0))),
 	Y_ONLY(Arrays.asList(
@@ -56,8 +57,10 @@ public enum Rotator {
 
 	private static final Map<String, Rotator> lookupname = new HashMap<String, Rotator>();
 
-	static {
-		for(Rotator rotator : Rotator.values()){
+	static 
+	{
+		for(Rotator rotator : Rotator.values())
+		{
 			Rotator.lookupname.put(rotator.name(), rotator);
 		}
 	}
@@ -65,7 +68,8 @@ public enum Rotator {
 	// i'm using BlockOffset to double as an int trio here...
 	private final List<BlockOffset> rotlist;
 
-	Rotator(List<BlockOffset> rotlist){
+	Rotator(List<BlockOffset> rotlist)
+	{
 		this.rotlist = rotlist;
 	}
 
@@ -74,7 +78,8 @@ public enum Rotator {
 	 *
 	 * @return The default rotator.
 	 */
-	public static Rotator getDefault(){
+	public static Rotator getDefault()
+	{
 		return Rotator.NONE;
 	}
 
@@ -84,7 +89,8 @@ public enum Rotator {
 	 * @param name The rotator's name (in the enum).
 	 * @return The requested rotator, or null.
 	 */
-	public static Rotator getRotator(String name){
+	public static Rotator getRotator(String name)
+	{
 		return lookupname.get(name);
 	}
 
@@ -94,7 +100,8 @@ public enum Rotator {
 	 * @param name The rotator's name.
 	 * @return The requested rotator, or null.
 	 */
-	public static Rotator matchRotator(String name){
+	public static Rotator matchRotator(String name)
+	{
 		String filtered = name.toUpperCase();
 		filtered = filtered.replaceAll("\\s+", "_").replaceAll("\\W", "");
 		return Rotator.lookupname.get(filtered);
@@ -106,10 +113,12 @@ public enum Rotator {
 	 * @param offset The offset to rotate.
 	 * @return A list of rotated offsets (including the original).
 	 */
-	public List<BlockOffset> getRotated(BlockOffset offset){
+	public List<BlockOffset> getRotated(BlockOffset offset)
+	{
 		List<BlockOffset> rotoffsets = new ArrayList<BlockOffset>();
 
-		for(BlockOffset rotcount : this.rotlist){
+		for(BlockOffset rotcount : this.rotlist)
+		{
 			rotoffsets.add(this.rotateXYZ(offset,
 							rotcount.x, rotcount.y, rotcount.z));
 		}
@@ -122,7 +131,8 @@ public enum Rotator {
 	 *
 	 * @return The number of rotations.
 	 */
-	public int getNumberOfRotations(){
+	public int getNumberOfRotations()
+	{
 		return this.rotlist.size();
 	}
 
@@ -138,7 +148,8 @@ public enum Rotator {
 	 * @param zcount The number of pi/2 rotations about the z axis.
 	 * @return A new rotated BlockVector.
 	 */
-	private BlockOffset rotateXYZ(BlockOffset offset, int xcount, int ycount, int zcount){
+	private BlockOffset rotateXYZ(BlockOffset offset, int xcount, int ycount, int zcount)
+	{
 
 		int xp = offset.x;
 		int yp = offset.y;
@@ -147,7 +158,8 @@ public enum Rotator {
 		int ytmp = yp;
 		int ztmp = zp;
 
-		for(int i = 0; i < xcount; i++){
+		for(int i = 0; i < xcount; i++)
+		{
 			// rotate pi/2 about x axis
 			zp = ytmp;
 			yp = -ztmp;
@@ -155,7 +167,8 @@ public enum Rotator {
 			ytmp = yp;
 		}
 
-		for(int j = 0; j < ycount; j++){
+		for(int j = 0; j < ycount; j++)
+		{
 			// rotate pi/2 about y axis
 			zp = -xtmp;
 			xp = ztmp;
@@ -163,7 +176,8 @@ public enum Rotator {
 			xtmp = xp;
 		}
 
-		for(int k = 0; k < zcount; k++){
+		for(int k = 0; k < zcount; k++)
+		{
 			// rotate pi/2 about z axis
 			yp = xtmp;
 			xp = -ytmp;

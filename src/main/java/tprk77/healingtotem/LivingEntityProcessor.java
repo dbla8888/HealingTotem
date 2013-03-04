@@ -88,6 +88,7 @@ public class LivingEntityProcessor
 		                  effect + "." + getEntityName(entity), 0);
 				double range = totem.getTotemType().getRange();
 				
+				//Should these calculations take place here or in the totemtype class?
 				if(totem.getTotemType().getGradient().equals("NONE"))
 				{
 		            power += totemPower;
@@ -113,29 +114,37 @@ public class LivingEntityProcessor
             
 	protected void applyHeal(LivingEntity entity, int power)
     {
-		if(power > this.stackedheal){
+		if(power > this.stackedheal)
+		{
 			power = this.stackedheal;
-		}else if(power < -this.stackeddamage){
+		}else if(power < -this.stackeddamage)
+		{
 			power = -this.stackeddamage;
 		}
-		if(power > 0){
+		if(power > 0)
+		{
 			EntityRegainHealthEvent regen = new EntityRegainHealthEvent(
 							entity, power, EntityRegainHealthEvent.RegainReason.CUSTOM);
 			this.eventCaller.callEvent(regen);
-			if(!regen.isCancelled()){
+			if(!regen.isCancelled())
+			{
 				int newhealth = entity.getHealth() + regen.getAmount();
-				if(newhealth < 0){
+				if(newhealth < 0)
+				{
 					newhealth = 0;
-				}else if(newhealth > 20){
+				}else if(newhealth > 20)
+				{
 					newhealth = 20;
 				}
 				entity.setHealth(newhealth);
 			}
-		}else if(power < 0){
+		}else if(power < 0)
+		{
 			EntityDamageEvent damage = new EntityDamageEvent(
 				entity, EntityDamageEvent.DamageCause.CUSTOM, -power);
 			this.eventCaller.callEvent(damage);
-			if(!damage.isCancelled()){
+			if(!damage.isCancelled())
+			{
 				entity.damage(damage.getDamage());
 			}
 		}

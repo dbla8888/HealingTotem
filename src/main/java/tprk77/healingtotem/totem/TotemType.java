@@ -10,8 +10,8 @@ import org.bukkit.configuration.ConfigurationSection;
  *
  * @author tim
  */
-public final class TotemType {
-
+public final class TotemType 
+{
 	private final String name;             
 	private final double range;
 	private final StructureType structuretype;
@@ -22,7 +22,7 @@ public final class TotemType {
 
 	public TotemType(String name, ConfigurationSection effects, double range, 
 			StructureType structuretype)
-        {
+    {
 		this(name, effects, range, structuretype, Rotator.NONE, "NONE");
 	}
 

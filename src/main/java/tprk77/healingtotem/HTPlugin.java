@@ -22,8 +22,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 //style, along with documentation.  Also the access protection of just about
 //everything needs to be looked at.  Oh and the testing.  Dear Lord do we 
 //need some testing.
-public final class HTPlugin extends JavaPlugin {
-
+public final class HTPlugin extends JavaPlugin 
+{
 	private static final Logger log = Logger.getLogger("Minecraft");
 	private HTTotemManager totemmanager;
 	private HTBlockListener blocklistener;
@@ -40,8 +40,7 @@ public final class HTPlugin extends JavaPlugin {
      */
 	@Override
 	public void onEnable()
-        {
-
+    {
 		this.log("is enabled!");
 
                 //load totems and totemtypes
@@ -129,7 +128,8 @@ public final class HTPlugin extends JavaPlugin {
     {
         if (totemConfig == null || totemConfigFile == null) 
         {return;}
-        try {
+        try 
+        {
             totemConfig.save(totemConfigFile);
         } catch (IOException ex) {
             this.getLogger().log(Level.SEVERE, "Could not save config to " + totemConfigFile, ex);

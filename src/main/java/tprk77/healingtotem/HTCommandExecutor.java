@@ -6,8 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class HTCommandExecutor implements CommandExecutor {
-
+public class HTCommandExecutor implements CommandExecutor 
+{
 	HTPlugin plugin;
 	HTHealerRunnable healerRunnable;
 	HTTotemManager totemManager;
@@ -68,8 +68,7 @@ public class HTCommandExecutor implements CommandExecutor {
                 totemManager.loadTotems();
                 healerRunnable.schedule();
                 plugin.log("HealingTotem Reloaded");
-            }
-            
+            }            
             return true;
 		}
 		return false;

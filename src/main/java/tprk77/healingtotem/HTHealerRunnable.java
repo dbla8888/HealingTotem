@@ -11,8 +11,8 @@ import org.bukkit.scheduler.BukkitScheduler;
  * effects of totems in the game world. 
  * @author tim, Aaron
  */
-public class HTHealerRunnable implements Runnable {
-
+public class HTHealerRunnable implements Runnable 
+{
 	private final HTPlugin plugin;
 	private final int period;
 	private int taskID;
@@ -21,9 +21,7 @@ public class HTHealerRunnable implements Runnable {
 	HTHealerRunnable(HTPlugin plugin)
     {
 		this.plugin = plugin;
-
-        period = this.plugin.getTotemManager().getEffectInterval();
-                
+        period = this.plugin.getTotemManager().getEffectInterval();               
         processor = new LivingEntityProcessor(
                         this.plugin,
                     	this.plugin.getServer().getPluginManager(),

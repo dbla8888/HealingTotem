@@ -14,31 +14,36 @@ import org.bukkit.block.Block;
  *
  * @author tim
  */
-public class Structure {
-
+public class Structure 
+{
 	protected final StructureType structuretype;
 	protected final Block rootblock;
 	protected final Set<Block> blocks;
 
-	public Structure(StructureType possiblestructuretype, Block block){
+	public Structure(StructureType possiblestructuretype, Block block)
+	{
 		this(new ArrayList<StructureType>(Arrays.asList(possiblestructuretype)), block);
 	}
 
-	public Structure(List<StructureType> structuretypes, Block block){
-
-		for(StructureType possiblestructuretype : structuretypes){
+	public Structure(List<StructureType> structuretypes, Block block)
+	{
+		for(StructureType possiblestructuretype : structuretypes)
+		{
 			Map<BlockOffset, Material> pattern = possiblestructuretype.getPattern();
 
-			if(pattern.containsValue(block.getType())){
+			if(pattern.containsValue(block.getType()))
+			{
 				Map<Material, List<BlockOffset>> reversepattern = possiblestructuretype.getReversePattern();
 				List<BlockOffset> offsets = reversepattern.get(block.getType());
 
-				for(BlockOffset offset : offsets){
+				for(BlockOffset offset : offsets)
+				{
 					Block possiblerootblock = block.getRelative(
 									-offset.x, -offset.y, -offset.z);
 					Set<Block> possibleblocks = this.verifyStructure(possiblestructuretype, possiblerootblock);
 
-					if(possibleblocks != null){
+					if(possibleblocks != null)
+					{
 						this.structuretype = possiblestructuretype;
 						this.rootblock = possiblerootblock;
 						this.blocks = possibleblocks;
@@ -53,7 +58,8 @@ public class Structure {
 		this.blocks = null;
 	}
 
-	public StructureType getStructureType(){
+	public StructureType getStructureType()
+	{
 		return this.structuretype;
 	}
 	
@@ -63,28 +69,34 @@ public class Structure {
 	//of the block, but the bottom south-east corner of the block.
 	//I think it would be better to use a org.bukkit.Location and 
 	//pick the center of mass of the totem, but I'm open to other ideas. 
-	public Block getRootBlock(){
+	public Block getRootBlock()
+	{
 		return this.rootblock;
 	}
 
-	public Set<Block> getBlocks(){
+	public Set<Block> getBlocks()
+	{
 		// defend against outisde adding/removing
 		return new HashSet<Block>(this.blocks);
 	}
 
-	public World getWorld(){
+	public World getWorld()
+	{
 		return this.rootblock.getWorld();
 	}
 
-	public boolean containsBlock(Block block){
+	public boolean containsBlock(Block block)
+	{
 		return this.blocks.contains(block);
 	}
 
-	public boolean verifyStructure(){
+	public boolean verifyStructure()
+	{
 		return (this.structuretype != null && this.rootblock != null && this.blocks != null);
 	}
 
-	/*private void durp(){
+	/*private void durp()
+	{
 		// figure out rotations things
 
 		Map<BlockOffset, Material> pattern = this.structuretype.getPattern();
@@ -104,22 +116,26 @@ public class Structure {
 	 * @return If the search is successful, then a Block corresponding to the
 	 * pattern origin (offset <0, 0, 0>). If the search fails, then null.
 	 */
-	/*private Block searchAtBlock(Block block){
+	/*private Block searchAtBlock(Block block)
+	 {
 
 		Map<BlockOffset, Material> pattern = this.structuretype.getPattern();
 
-		if(!pattern.containsValue(block.getType())){
+		if(!pattern.containsValue(block.getType()))
+		{
 			return null;
 		}
 
 		Map<Material, List<BlockOffset>> reversepattern = this.structuretype.getReversePattern();
 		List<BlockOffset> offsets = reversepattern.get(block.getType());
 
-		for(BlockOffset offset : offsets){
+		for(BlockOffset offset : offsets)
+		{
 			Block possiblerootblock = block.getRelative(
 							-offset.x(), -offset.y, -offset.z);
 
-			if(this.verifyStructure(possiblerootblock) != null){
+			if(this.verifyStructure(possiblerootblock) != null)
+			{
 				return possiblerootblock;
 			}
 		}
@@ -136,25 +152,27 @@ public class Structure {
 	 * @return If the structure is valid return the list of blocks, or if the
 	 * structure was not valid return null.
 	 */
-	private Set<Block> verifyStructure(StructureType structuretype, Block rootblock){
+	private Set<Block> verifyStructure(StructureType structuretype, Block rootblock)
+	{
 
 		if(rootblock == null) return null;
 
 		Map<BlockOffset, Material> pattern = structuretype.getPattern();
 		Set<Block> possibleblocks = new HashSet<Block>();
 
-		for(BlockOffset offset : pattern.keySet()){
+		for(BlockOffset offset : pattern.keySet())
+		{
 			Block block = rootblock.getRelative(
 							offset.x, offset.y, offset.z);
 
 			Material material = pattern.get(offset);
-			if(block.getType() != material){
+			if(block.getType() != material)
+			{
 				return null;
 			}else{
 				possibleblocks.add(block);
 			}
 		}
-
 		return possibleblocks;
 	}
 }
